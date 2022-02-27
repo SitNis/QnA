@@ -1,0 +1,15 @@
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/websocket-driver-0.7.5/ext/websocket-driver
+/home/sitnis/.rvm/rubies/ruby-2.7.2/bin/ruby -I /home/sitnis/.rvm/rubies/ruby-2.7.2/lib/ruby/2.7.0 -r ./siteconf20220227-25188-1ni12nn.rb extconf.rb
+creating Makefile
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/websocket-driver-0.7.5/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/websocket-driver-0.7.5/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.so
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/websocket-driver-0.7.5/ext/websocket-driver
+make "DESTDIR=" install
+/usr/bin/install -m 0755 websocket_mask.so ./.gem.20220227-25188-x015vd

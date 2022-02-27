@@ -1,0 +1,15 @@
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+/home/sitnis/.rvm/rubies/ruby-2.7.2/bin/ruby -I /home/sitnis/.rvm/rubies/ruby-2.7.2/lib/ruby/2.7.0 -r ./siteconf20220227-25188-pv0mcr.rb extconf.rb
+creating Makefile
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/sitnis/QnA/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20220227-25188-143w8ig/bootsnap
