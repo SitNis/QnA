@@ -1,0 +1,9 @@
+div
+  h1= question.title
+  p= question.body
+
+div
+  h2 Answers:
+
+div
+  =render partial: "answers/answer", collection: question.answers
