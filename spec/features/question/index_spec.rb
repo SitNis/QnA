@@ -6,13 +6,9 @@ feature 'User can see all questions', %q{
   I'd like to see all questions
 } do
 
-  given(:user) { create(:user) }
+  scenario 'sees all questions' do
+    visit questions_path
 
-  describe 'Any user' do
-    scenario 'sees all questions' do
-      visit questions_path
-
-      expect(page).to have_content 'Questions'
-    end
+    expect(page).to have_content 'Questions:'
   end
 end
