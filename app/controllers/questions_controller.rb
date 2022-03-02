@@ -1,7 +1,14 @@
 class QuestionsController < ApplicationController
-  expose :questions, -> { Question.all }
-  expose :question
+  before_action :load_question, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
+
+  def index
+    @questions = Question.all
+  end
+
+  def new
+    @question = Question.new()
+  end
 
   def create
     @question = Question.new(question_params)
@@ -13,9 +20,10 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def update
-    @question = question
+  def edit
+  end
 
+  def update
     if @question.update(question_params)
       redirect_to @question
     else
@@ -24,11 +32,19 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question.destroy
+    @question.destroy
     redirect_to questions_path
   end
 
+  def show
+    @answer = Answer.new()
+  end
+
   private
+
+  def load_question
+    @question = Question.find(params[:id])
+  end
 
   def question_params
     params.require(:question).permit(:title, :body)
