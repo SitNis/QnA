@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.build(answer_params)
+    current_user.answers << @answer
 
     if @answer.save
       redirect_to question_path(@question), notice: 'Your answer successfully created.'
@@ -13,6 +14,7 @@ class AnswersController < ApplicationController
   end
 
   private
+
   def answer_params
     params.require(:answer).permit(:body)
   end
