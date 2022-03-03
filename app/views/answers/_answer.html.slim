@@ -1,1 +1,5 @@
 p= answer.body
+
+p
+  -if answer.valid?
+    =link_to 'Delete your answer', answer_path(answer), method: :delete
