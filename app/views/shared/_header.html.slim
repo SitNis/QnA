@@ -1,0 +1,8 @@
+-if user_signed_in?
+  div
+    p= current_user.email
+    p= button_to('Log out', destroy_user_session_path, method: :delete)
+-else
+
+  div
+    p= button_to('Enter', new_user_session_path )
