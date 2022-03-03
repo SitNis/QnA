@@ -1,4 +1,9 @@
 div
+  = link_to "Delete your question",
+    question_path(@question),
+    method: "delete"
+
+div
   h1= @question.title
   p= @question.body
 
