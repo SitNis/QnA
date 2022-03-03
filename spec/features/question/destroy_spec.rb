@@ -23,16 +23,14 @@ feature 'User can destroy his own question', %q{
       sign_in(user)
 
       visit question_path(question)
-      click_on 'Delete your question'
 
-      expect(page).to have_content 'You are not an author!'
+      expect(page).to_not have_content 'Delete your question'
     end
   end
 
   scenario 'Unauthenticated user' do
     visit question_path(question)
-    click_on 'Delete your question'
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to_not have_content 'Delete your question'
   end
 end

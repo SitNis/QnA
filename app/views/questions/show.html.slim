@@ -1,7 +1,8 @@
 div
-  = link_to "Delete your question",
-    question_path(@question),
-    method: "delete"
+  -if current_user == @question.user
+    = link_to "Delete your question",
+      question_path(@question),
+      method: "delete"
 
 div
   h1= @question.title
