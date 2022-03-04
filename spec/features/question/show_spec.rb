@@ -6,13 +6,13 @@ feature 'User can see the question discussion', %q{
   I'd like to be able to see question discussion
 } do
 
-  given(:question) { create(:question) }
+  given(:answer) { create(:answer) }
 
   scenario 'see the question discussion' do
-    visit question_path(question)
+    visit question_path(answer.question)
 
-    expect(page).to have_content question.title
-    expect(page).to have_content question.body
-    expect(page).to have_content 'Answers:'
+    expect(page).to have_content answer.question.title
+    expect(page).to have_content answer.question.body
+    expect(page).to have_content answer.body
   end
 end

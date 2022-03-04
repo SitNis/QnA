@@ -16,7 +16,7 @@ feature 'User can destroy his own question', %q{
       visit question_path(question)
       click_on 'Delete your question'
 
-      expect(page).to have_content 'Question successfully deleted!'
+      expect(page).to_not have_content question.title
     end
 
     scenario "can't delete not his question" do
