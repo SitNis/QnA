@@ -1,5 +1,5 @@
 p= answer.body
 
 p
-  -if answer.valid?
+  -if answer.persisted? && current_user && current_user.author_of?(answer)
     =link_to 'Delete your answer', answer_path(answer), method: :delete
