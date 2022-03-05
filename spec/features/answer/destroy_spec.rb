@@ -6,7 +6,7 @@ feature 'User can destroy his own answer', %q{
   I'd like to be able to delete an answer
 } do
 
-  given(:answer) { create(:answer) }
+  given!(:answer) { create(:answer) }
   given(:user) { create(:user) }
 
   describe 'Authenticated user' do
