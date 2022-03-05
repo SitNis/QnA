@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
       @question.destroy
       redirect_to questions_path, notice: 'Question successfully deleted!'
     else
-      render @question, notice: 'You are not an author'
+      redirect_to @question, notice: 'You are not an author'
     end
   end
 
