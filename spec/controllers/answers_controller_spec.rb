@@ -41,21 +41,19 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'redirects to question' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to answer.question
+        show_question_after_delete(answer)
       end
     end
 
     context 'user is not an author' do
       before { login(user) }
 
-      it "deletes the answer" do
+      it "deletes not his answer" do
         expect { delete :destroy, params: { id: answer} }.to_not change(Answer, :count)
       end
 
       it 'redirects to question' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to answer.question
+        show_question_after_delete(answer)
       end
     end
   end
