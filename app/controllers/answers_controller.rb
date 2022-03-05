@@ -18,6 +18,8 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @answer.destroy
       redirect_to question_path(@answer.question)
+    else
+      render @answer.question, notice: 'You are not an author'
     end
   end
 

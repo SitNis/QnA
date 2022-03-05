@@ -9,7 +9,7 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with valid attributes' do
       it 'saves a new answer in the database' do
-        expect { post :create, params: { answer: attributes_for(:answer), question_id: question, user_id: user } }.to change(user.answers, :count).by(1)
+        expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(user.answers, :count).by(1)
       end
 
       it 'redirects to question' do
@@ -34,8 +34,14 @@ RSpec.describe AnswersController, type: :controller do
     let!(:answer) { create(:answer) }
     before { login(answer.user) }
 
-    it 'deletes the answer' do
+    it 'author deletes the answer' do
       expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
+    end
+
+    it "user delete not his the answer" do
+      login(user)
+
+      expect { delete :destroy, params: { id: answer} }.to_not change(Answer, :count)
     end
 
     it 'redirects to question' do
