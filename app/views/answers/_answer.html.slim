@@ -6,6 +6,9 @@ div id=answer.id
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
+  - if current_user&.author_of?(answer.question)
+    p= button_to('Best', best_answer_path(answer), remote: true, method: :patch)
+
   = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
     = f.label :body, 'Your answer'
     = f.text_area :body
