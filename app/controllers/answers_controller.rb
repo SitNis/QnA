@@ -1,17 +1,12 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: %i[create]
-  before_action :load_answer, only: %i[destroy]
+  before_action :load_answer, only: %i[destroy update]
 
   def create
-    @answer = @question.answers.build(answer_params)
+    @answer = @question.answers.create(answer_params)
     current_user.answers << @answer
 
-    if @answer.save
-      redirect_to question_path(@question), notice: 'Your answer successfully created.'
-    else
-      render template: "questions/show"
-    end
   end
 
   def destroy
@@ -21,6 +16,11 @@ class AnswersController < ApplicationController
     else
       redirect_to @answer.question, notice: 'You are not an author'
     end
+  end
+
+  def update
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   private

@@ -11,13 +11,12 @@ div
 div
   h2 Answers:
 
-div
+.answers
   =render @question.answers
 
-div
-  h2 Your answer:
-  =render 'shared/errors', resource: @answer
-  =form_with model: [@question, @answer], local: true do |f|
-    p= f.label :body
-    p= f.text_area :body
-    p= f.submit 'Answer'
+.answer-errors
+    =render 'shared/errors', resource: @answer
+=form_with model: [@question, @answer], local: false, class: "new-answer" do |f|
+  p= f.label :body
+  p= f.text_area :body
+  p= f.submit 'Answer'
