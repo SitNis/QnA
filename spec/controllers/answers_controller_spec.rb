@@ -68,11 +68,7 @@ RSpec.describe AnswersController, type: :controller do
       before { login(answer.user) }
 
       it 'deletes the answer' do
-        expect { delete :destroy, params: { id: answer } }.to change(Answer, :count).by(-1)
-      end
-
-      it 'redirects to question' do
-        show_question_after_delete(answer)
+        expect { delete :destroy, params: { id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
     end
 
@@ -80,11 +76,7 @@ RSpec.describe AnswersController, type: :controller do
       before { login(user) }
 
       it "deletes not his answer" do
-        expect { delete :destroy, params: { id: answer} }.to_not change(Answer, :count)
-      end
-
-      it 'redirects to question' do
-        show_question_after_delete(answer)
+        expect { delete :destroy, params: { id: answer}, format: :js }.to_not change(Answer, :count)
       end
     end
   end
