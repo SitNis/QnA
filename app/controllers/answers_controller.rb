@@ -6,7 +6,6 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.create(answer_params)
     current_user.answers << @answer
-
   end
 
   def destroy
