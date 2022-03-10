@@ -29,4 +29,6 @@ div
 = form_with model: [@question, @answer], local: false, class: "new-answer" do |f|
   p= f.label :body
   p= f.text_area :body
+  p= f.label :files
+  p= f.file_field :files, multiple: true
   p= f.submit 'Answer'
