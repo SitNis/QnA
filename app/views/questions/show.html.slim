@@ -1,23 +1,32 @@
-div
-  -if current_user&.author_of?(@question)
-    = link_to "Delete your question",
+.question
+  - if current_user&.author_of?(@question)
+    p= link_to "Delete your question",
       question_path(@question),
       method: "delete"
 
-div
-  h1= @question.title
-  p= @question.body
+    p= link_to 'Edit',
+      '#',
+      class: 'edit-question-link',
+      data: { question_id: @question.id }
+
+  .question-errors
+    = render 'shared/errors', resource: @question
+
+  = render @question
+
+.best-answer
+  - if @question.best_answer
+    = render 'answers/best_answer'
 
 div
-  h2 Answers:
+  h2 All answers:
 
-div
-  =render @question.answers
+.answers
+  = render @question.answers
 
-div
-  h2 Your answer:
-  =render 'shared/errors', resource: @answer
-  =form_with model: [@question, @answer], local: true do |f|
-    p= f.label :body
-    p= f.text_area :body
-    p= f.submit 'Answer'
+.answer-errors
+    = render 'shared/errors', resource: @answer
+= form_with model: [@question, @answer], local: false, class: "new-answer" do |f|
+  p= f.label :body
+  p= f.text_area :body
+  p= f.submit 'Answer'

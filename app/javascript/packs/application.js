@@ -7,6 +7,8 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import 'packs/utilities/answers'
+import 'packs/utilities/question'
 
 Rails.start()
 Turbolinks.start()

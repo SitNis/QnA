@@ -10,7 +10,7 @@ feature 'User can destroy his own answer', %q{
   given(:user) { create(:user) }
 
   describe 'Authenticated user' do
-    scenario 'can delete his answer' do
+    scenario 'can delete his answer', js: true do
       sign_in(answer.user)
 
       visit question_path(answer.question)
