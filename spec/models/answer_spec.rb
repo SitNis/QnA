@@ -11,14 +11,14 @@ RSpec.describe Answer, type: :model do
   let(:second_answer) { create(:answer, question: question) }
 
   it 'should sets best answer' do
-    answer.set_best(question)
+    answer.set_best
 
     expect(answer.best).to eq true
   end
 
   it 'should change best answer' do
-    answer.set_best(question)
-    second_answer.set_best(question)
+    answer.set_best
+    second_answer.set_best
     answer.reload
 
     expect(answer.best).to eq false

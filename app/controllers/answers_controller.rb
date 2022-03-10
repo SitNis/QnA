@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
   def best
     @question = @answer.question
     if current_user.author_of?(@question)
-      @answer.set_best(@question)
+      @answer.set_best
     end
   end
 

@@ -4,9 +4,9 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  def set_best(question)
-    if question.best_answer
-      question.best_answer.update(best: false)
+  def set_best
+    if self.question.best_answer
+      self.question.best_answer.update(best: false)
       self.update(best: true)
     else
       self.update(best: true)
