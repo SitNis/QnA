@@ -11,4 +11,6 @@ div
   = f.text_field :title
   = f.label :body, 'Your question body'
   = f.text_area :body
+  = f.label :files
+  = f.file_field :files, multiple: true
   = f.submit 'Save'
