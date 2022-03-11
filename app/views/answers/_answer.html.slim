@@ -2,6 +2,14 @@ div id=answer.id
 
   = answer.body
 
+  .answer-files
+    - if answer.files.attached?
+      - answer.files.each do |file|
+        div id=file.id
+          p= link_to file.filename.to_s, url_for(file)
+          -if current_user&.author_of?(answer)
+            p= link_to 'Delete', file_url(file), method: :delete, remote: true
+
   - if current_user&.author_of?(answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
@@ -12,4 +20,6 @@ div id=answer.id
   = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
     = f.label :body, 'Your answer'
     = f.text_area :body
+    = f.label :files
+    = f.file_field :files, multiple: true, direct_upload: true
     = f.submit 'Save'
