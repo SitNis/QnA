@@ -11,7 +11,7 @@
 
   - if @question.links.exists?
     .links
-      p links:
+      p Links:
       ul
         - @question.links.each do |link|
           li= link_to link.name, link.url
@@ -38,4 +38,13 @@ div
   p= f.text_area :body
   p= f.label :files
   p= f.file_field :files, multiple: true
+  p Links:
+  p
+    = f.fields_for :links do |l|
+      p
+        = l.label :name, 'Link name'
+        = l.text_field :name
+      p
+        = l.label :url
+        = l.text_field :url
   p= f.submit 'Answer'

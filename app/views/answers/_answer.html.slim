@@ -10,6 +10,13 @@ div id=answer.id
           -if current_user&.author_of?(answer)
             p= link_to 'Delete', file_url(file), method: :delete, remote: true
 
+  - if answer.links.exists?
+    .links
+      p Links:
+      ul
+        - answer.links.each do |link|
+          li= link_to link.name, link.url
+
   - if current_user&.author_of?(answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
