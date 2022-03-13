@@ -14,7 +14,10 @@
       p Links:
       ul
         - @question.links.each do |link|
-          li= link_to link.name, link.url
+          - if link.url =~ /gist.github.com/
+            script src="#{link.url}.js"
+          - else
+            li= link_to link.name, link.url
 
   .question-errors
     = render 'shared/errors', resource: @question
@@ -38,7 +41,6 @@ div
   p= f.text_area :body
   p= f.label :files
   p= f.file_field :files, multiple: true
-  p Links:
   p
   = render 'link_form', f: f
   p= f.submit 'Answer'

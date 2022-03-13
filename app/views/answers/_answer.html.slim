@@ -10,12 +10,16 @@ div id=answer.id
           -if current_user&.author_of?(answer)
             p= link_to 'Delete', file_url(file), method: :delete, remote: true
 
-  - if answer.links.exists?
-    .links
+
+  .links
+    - if answer.links.exists?
       p Links:
       ul
         - answer.links.each do |link|
-          li= link_to link.name, link.url
+          - if link.url =~ /gist.github.com/
+            script src="#{link.url}.js"
+          - else
+            li= link_to link.name, link.url
 
   - if current_user&.author_of?(answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
