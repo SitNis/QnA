@@ -9,6 +9,13 @@
       class: 'edit-question-link',
       data: { question_id: @question.id }
 
+  - if @question.links.exists?
+    .links
+      p links:
+      ul
+        - @question.links.each do |link|
+          li= link_to link.name, link.url
+
   .question-errors
     = render 'shared/errors', resource: @question
 
