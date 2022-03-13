@@ -3,23 +3,9 @@ div id=answer.id
   = answer.body
 
   .answer-files
-    - if answer.files.attached?
-      - answer.files.each do |file|
-        div id=file.id
-          p= link_to file.filename.to_s, url_for(file)
-          -if current_user&.author_of?(answer)
-            p= link_to 'Delete', file_url(file), method: :delete, remote: true
+    = render 'files/file', resource: answer
 
-
-  .links
-    - if answer.links.exists?
-      p Links:
-      ul
-        - answer.links.each do |link|
-          - if link.url =~ /gist.github.com/
-            script src="#{link.url}.js"
-          - else
-            li= link_to link.name, link.url
+  = render 'links/link', resource: answer
 
   - if current_user&.author_of?(answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete

@@ -9,15 +9,7 @@
       class: 'edit-question-link',
       data: { question_id: @question.id }
 
-  - if @question.links.exists?
-    .links
-      p Links:
-      ul
-        - @question.links.each do |link|
-          - if link.url =~ /gist.github.com/
-            script src="#{link.url}.js"
-          - else
-            li= link_to link.name, link.url
+  = render 'links/link', resource: @question
 
   .question-errors
     = render 'shared/errors', resource: @question

@@ -3,12 +3,7 @@ div
   p= question.body
 
   .files
-    - if question.files.attached?
-      - question.files.each do |file|
-        div id=file.id
-          p= link_to file.filename.to_s, url_for(file)
-        -if current_user&.author_of?(question)
-          p= link_to 'Delete', file_url(file), method: :delete, remote: true
+    =render 'files/file', resource: question
 
 = form_with model: question, local: false, class: 'hidden', html: { id: "edit-question-#{question.id}" } do |f|
   = f.label :title, 'Your question title'
