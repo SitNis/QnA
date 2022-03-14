@@ -25,6 +25,9 @@ class AnswersController < ApplicationController
     @question = @answer.question
     if current_user.author_of?(@question)
       @answer.set_best
+      if @question.badge
+        @question.give_badge
+      end
     end
   end
 
@@ -39,6 +42,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, files: [], links_attributes: [:name, :url])
+    params.require(:answer).permit(:body, files: [], links_attributes: [:name, :url, :_destroy])
   end
 end
