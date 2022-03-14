@@ -15,4 +15,10 @@ class Question < ApplicationRecord
   def best_answer
     answers.find_by(best: true)
   end
+
+  def give_badge
+    if !best_answer&.user.already_achived?(self.badge)
+      best_answer.user.badges << self.badge
+    end
+  end
 end

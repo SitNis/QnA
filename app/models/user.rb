@@ -11,4 +11,8 @@ class User < ApplicationRecord
   def author_of?(model)
     id == model.user_id
   end
+
+  def already_achived?(badge)
+    self.badges.exists?(badge.id)
+  end
 end
