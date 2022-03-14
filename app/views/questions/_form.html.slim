@@ -9,8 +9,15 @@
   p
     = f.label :files
     = f.file_field :files, multiple: true
-
   p
     = render 'links/link_form', f: f
+  p
+    = f.fields_for :badge do |b|
+      p
+        = b.label :title
+        = b.text_field :title
+      p
+        = b.label :image
+        = b.file_field :image
 
   p= f.submit 'Ask'
