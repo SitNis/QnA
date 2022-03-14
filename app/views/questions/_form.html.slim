@@ -11,6 +11,6 @@
     = f.file_field :files, multiple: true
 
   p
-  = render 'link_form', f: f
+    = render 'links/link_form', f: f
 
   p= f.submit 'Ask'

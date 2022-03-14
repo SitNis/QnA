@@ -9,8 +9,6 @@
       class: 'edit-question-link',
       data: { question_id: @question.id }
 
-  = render 'links/link', resource: @question
-
   .question-errors
     = render 'shared/errors', resource: @question
 
@@ -33,6 +31,5 @@ div
   p= f.text_area :body
   p= f.label :files
   p= f.file_field :files, multiple: true
-  p
-  = render 'link_form', f: f
+  p= render 'links/link_form', f: f
   p= f.submit 'Answer'
