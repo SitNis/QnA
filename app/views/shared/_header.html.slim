@@ -2,6 +2,7 @@
   div
     p= current_user.email
     p= button_to('Log out', destroy_user_session_path, method: :delete)
+    p= link_to "My badges", badges_path
 -else
 
   div

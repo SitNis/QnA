@@ -11,7 +11,7 @@
     = f.file_field :files, multiple: true
   p
     = render 'links/link_form', f: f
-  p
+  .badge
     = f.fields_for :badge do |b|
       p
         = b.label :title, 'Badge name'

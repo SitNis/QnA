@@ -2,6 +2,11 @@ div
   h3= question.title
   p= question.body
 
+  .badge
+    p Badge for best answer:
+    -if question.badge
+      = render question.badge
+
   .files
     = render 'files/file', resource: question
 

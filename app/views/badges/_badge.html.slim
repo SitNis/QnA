@@ -1,0 +1,4 @@
+div
+  h3= badge.title
+  - if badge.image.persisted?
+    p = image_tag(badge.image)
