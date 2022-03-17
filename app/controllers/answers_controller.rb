@@ -25,9 +25,7 @@ class AnswersController < ApplicationController
     @question = @answer.question
     if current_user.author_of?(@question)
       @answer.set_best
-      if @question.badge
-        @question.give_badge
-      end
+      @question.give_badge if @question.badge
     end
   end
 
