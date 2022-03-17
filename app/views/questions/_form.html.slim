@@ -1,9 +1,23 @@
 = render 'shared/errors', resource: @question
 = form_with model: @question, local: true do |f|
-  = f.label :title
-  = f.text_field :title
-  = f.label :body
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true
-  = f.submit 'Ask'
+  p
+    = f.label :title
+    = f.text_field :title
+  p
+    = f.label :body
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true
+  p
+    = render 'links/link_form', f: f
+  .badge
+    = f.fields_for :badge do |b|
+      p
+        = b.label :title, 'Badge name'
+        = b.text_field :title
+      p
+        = b.label :image
+        = b.file_field :image
+
+  p= f.submit 'Ask'

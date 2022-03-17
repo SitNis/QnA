@@ -2,19 +2,28 @@ div
   h3= question.title
   p= question.body
 
+  .badge
+    p Badge for best answer:
+    -if question.badge
+      = render question.badge
+
   .files
-    - if question.files.attached?
-      - question.files.each do |file|
-        div id=file.id
-          p= link_to file.filename.to_s, url_for(file)
-        -if current_user&.author_of?(question)
-          p= link_to 'Delete', file_url(file), method: :delete, remote: true
+    = render 'files/file', resource: question
+
+  .links
+    = render 'links/link', resource: question
 
 = form_with model: question, local: false, class: 'hidden', html: { id: "edit-question-#{question.id}" } do |f|
-  = f.label :title, 'Your question title'
-  = f.text_field :title
-  = f.label :body, 'Your question body'
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true, direct_upload: true
-  = f.submit 'Save'
+  p
+    = f.label :title, 'Your question title'
+    = f.text_field :title
+  p
+    = f.label :body, 'Your question body'
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true, direct_upload: true
+  p
+    = render 'links/link_form', f: f
+
+  p= f.submit 'Save'

@@ -42,6 +42,20 @@ feature 'User can create question', %q{
       expect(page).to have_link 'spec_helper.rb'
       expect(page).to have_link 'rails_helper.rb'
     end
+
+    scenario 'asks a question with attached file' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+
+      within '.badge' do
+        fill_in 'Badge name', with: 'Badge'
+        attach_file 'Image', "#{Rails.root}/app/assets/images/First_try.jpg"
+      end
+      click_on "Ask"
+
+      expect(page).to have_content 'Badge'
+      expect(page).to have_css("img[src$='First_try.jpg']")
+    end
   end
 
   scenario 'Unauthenticated user tries to ask a question' do

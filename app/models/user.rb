@@ -6,8 +6,13 @@ class User < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
+  has_many :badges, dependent: :destroy
 
   def author_of?(model)
     id == model.user_id
+  end
+
+  def already_achived?(badge)
+    self.badges.exists?(badge.id)
   end
 end
