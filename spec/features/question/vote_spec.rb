@@ -32,33 +32,39 @@ feature 'User can vote for question', %q{
     end
   end
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js:true do
     background do
       sign_in(user)
       visit question_path(question)
     end
 
     scenario 'can like the question' do
-      within '.votes' do
+      within '.vote' do
         click_on 'Like'
+      end
 
+      within ".votable-score-#{question.id}" do
         expect(page).to have_content('1')
       end
     end
 
     scenario 'can dislike the question' do
-      within '.votes' do
+      within '.vote' do
         click_on 'Dislike'
+      end
 
+      within ".votable-score-#{question.id}" do
         expect(page).to have_content('-1')
       end
     end
 
     scenario 'can cancel vote for the question' do
-      within '.votes' do
+      within '.vote' do
         click_on 'Dislike'
-        click_on 'Cancel vote'
+        click_on 'Cancel'
+      end
 
+      within ".votable-score-#{question.id}" do
         expect(page).to have_content('0')
       end
     end

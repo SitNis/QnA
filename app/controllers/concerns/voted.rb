@@ -6,12 +6,59 @@ module Voted
   end
 
   def like
+    vote = @votable.vote(1, current_user)
+
+    respond_to do |format|
+      if vote.save
+        format.json {
+          render json: {
+            score: @votable.score,
+            id: @votable.id
+          }
+        }
+      else
+        format.json {
+          render json: {
+            errors: vote.errors.full_messages
+          }, status: :unprocessable_entity
+        }
+      end
+    end
   end
 
   def dislike
+    vote = @votable.vote(-1, current_user)
+
+    respond_to do |format|
+      if vote.save
+        format.json {
+          render json: {
+            score: @votable.score,
+            id: @votable.id
+          }
+        }
+      else
+        format.json {
+          render json: {
+            errors: vote.errors.full_messages
+          }, status: :unprocessable_entity
+        }
+      end
+    end
   end
 
   def cancel_vote
+    if !current_user.author_of?(@votable)
+      @votable.cancel_vote(current_user)
+      respond_to do |format|
+        format.json {
+          render json: {
+            score: @votable.score,
+            id: @votable.id
+          }
+        }
+      end
+    end
   end
 
   private

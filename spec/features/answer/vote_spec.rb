@@ -7,9 +7,9 @@ feature 'User can vote for answer', %q{
 } do
 
   given!(:question) { create(:question) }
-  given!(:answer) { create(:answer, question: question) }
   given(:user) { create(:user) }
-  given!(:user_answer) { create(:answer, question: question, user: user)}
+  given(:author) { create(:user) }
+  given!(:answer) { create(:answer, question: question, user: author) }
 
 
   scenario 'Unauthenticated can not vote for answer' do
@@ -23,32 +23,31 @@ feature 'User can vote for answer', %q{
   end
 
   scenario 'Author of answer can not vote for it' do
-    sign_in(user)
+    sign_in(author)
     visit question_path(question)
 
-    within ".answers ##{user_answer.id}" do
+    within ".answers" do
       expect(page).to_not have_link 'Like'
       expect(page).to_not have_link 'Dislike'
       expect(page).to_not have_link 'Cancel vote'
     end
   end
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit question_path(question)
     end
 
     scenario 'can like the answer' do
-      within '.answers' do
+      within ".answers" do
         click_on 'Like'
-
         expect(page).to have_content('1')
       end
     end
 
     scenario 'can dislike the answer' do
-      within '.answers' do
+      within ".answers" do
         click_on 'Dislike'
 
         expect(page).to have_content('-1')
@@ -56,9 +55,9 @@ feature 'User can vote for answer', %q{
     end
 
     scenario 'can cancel vote for the answer' do
-      within '.answers' do
+      within ".answers" do
         click_on 'Dislike'
-        click_on 'Cancel vote'
+        click_on 'Cancel'
 
         expect(page).to have_content('0')
       end

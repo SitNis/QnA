@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import 'packs/utilities/answers'
 import 'packs/utilities/question'
+import 'packs/utilities/votes'
 require("jquery")
 require("@nathanvda/cocoon")
 

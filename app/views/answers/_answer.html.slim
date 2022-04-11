@@ -8,8 +8,7 @@ div id=answer.id
   .answer-links
     = render 'links/link', resource: answer
 
-  .votes
-    = render 'votes/vote', votable: answer
+  = render 'votes/vote', votable: answer
 
   - if current_user&.author_of?(answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
