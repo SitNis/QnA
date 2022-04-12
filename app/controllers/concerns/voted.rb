@@ -48,16 +48,15 @@ module Voted
   end
 
   def cancel_vote
-    if !current_user.author_of?(@votable)
-      @votable.cancel_vote(current_user)
-      respond_to do |format|
-        format.json {
-          render json: {
-            score: @votable.score,
-            id: @votable.id
-          }
+    @votable.cancel_vote(current_user)
+
+    respond_to do |format|
+      format.json {
+        render json: {
+          score: @votable.score,
+          id: @votable.id
         }
-      end
+      }
     end
   end
 

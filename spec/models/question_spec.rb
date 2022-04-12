@@ -13,9 +13,9 @@ RSpec.describe Question, type: :model do
   it { should accept_nested_attributes_for :links }
   it { should accept_nested_attributes_for :badge }
 
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
   let!(:badge) { create(:badge, question: question) }
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
   let(:answer) { create(:answer, question: question, user: user)}
 
   it 'have many attached files' do
@@ -27,5 +27,24 @@ RSpec.describe Question, type: :model do
     question.give_badge
 
     expect(user.badges.first).to eq(badge)
+  end
+
+  it 'can get vote' do
+    question.vote(1, user)
+
+    expect(question.votes.first).to be_an_instance_of(Vote)
+  end
+
+  it 'can cancel vote' do
+    question.vote(1, user)
+    question.cancel_vote(user)
+
+    expect(question.votes.count).to eq(0)
+  end
+
+  it 'can count score' do
+    question.vote(1, user)
+
+    expect(question.score).to eq(1)
   end
 end

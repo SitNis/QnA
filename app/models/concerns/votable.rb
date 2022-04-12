@@ -7,15 +7,15 @@ module Votable
 
   def vote(value, user)
     if !already_voted?(user)
-      votes.create(value: value, votable: self, user: user)
+      votes.create(value: value, user: user)
     else
       cancel_vote(user)
-      votes.create(value: value, votable: self, user: user)
+      votes.create(value: value, user: user)
     end
   end
 
   def cancel_vote(user)
-    vote = user.votes.find_by(votable: self)
+    vote = votes.find_by(user: user)
     vote.destroy if vote
   end
 
@@ -26,6 +26,6 @@ module Votable
   private
 
   def already_voted?(user)
-    user.votes.find_by(votable: self)
+    !!votes.find_by(user: user)
   end
 end
