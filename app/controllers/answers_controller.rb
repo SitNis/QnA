@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
   before_action :load_question, only: %i[create]
   before_action :load_answer, only: %i[destroy update best]
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = @question.answers.create(answer_params)
     current_user.answers << @answer
@@ -43,5 +45,18 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: [:name, :url, :_destroy])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast(
+      "answers_#{@answer.question.id}",
+      ApplicationController.render(
+        partial: 'answers/answer_for_channel',
+        locals: {
+          answer: @answer,
+        }
+      )
+    )
   end
 end

@@ -1,0 +1,25 @@
+div id=answer.id
+
+  = answer.body
+
+.score
+  = answer.score
+
+.answer-files
+  - if answer.files.attached?
+    - answer.files.each do |file|
+      div id=file.id
+        p= link_to file.filename.to_s, url_for(file)
+
+.answer-links
+
+  - if answer.links.exists?
+    .links
+      p Links:
+
+      - answer.links.each do |link|
+        div id=link.id
+          - if link.url =~ /gist.github.com/
+            script src="#{link.url}.js"
+          - else
+            li= link_to link.name, link.url

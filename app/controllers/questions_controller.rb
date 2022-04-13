@@ -48,6 +48,8 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.with_attached_files.find(params[:id])
+
+    gon.question_id = @question.id
   end
 
   def question_params
