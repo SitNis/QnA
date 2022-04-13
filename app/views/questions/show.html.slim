@@ -14,6 +14,8 @@
 
   = render @question
 
+= render 'votes/vote', votable: @question
+
 .best-answer
   - if @question.best_answer
     = render 'answers/best_answer'
