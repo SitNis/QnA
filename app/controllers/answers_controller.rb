@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   include Voted
+  include Commented
 
   before_action :authenticate_user!
   before_action :load_question, only: %i[create]
@@ -51,12 +52,17 @@ class AnswersController < ApplicationController
     return if @answer.errors.any?
     ActionCable.server.broadcast(
       "answers_#{@answer.question.id}",
-      ApplicationController.render(
-        partial: 'answers/answer_for_channel',
-        locals: {
-          answer: @answer,
-        }
+      author_id: @answer.user.id,
+      page: render_answer
       )
+  end
+
+  def render_answer
+    ApplicationController.render(
+      partial: 'answers/answer_for_channel',
+      locals: {
+        answer: @answer,
+      }
     )
   end
 end
