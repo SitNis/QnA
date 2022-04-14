@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include Voted
+  include Commented
 
   before_action :load_question, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
