@@ -1,9 +1,10 @@
 .question
-  - if current_user&.author_of?(@question)
+  - if can?(:destroy, @question)
     p= link_to "Delete your question",
       question_path(@question),
       method: "delete"
 
+  - if can?(:update, @question)
     p= link_to 'Edit',
       '#',
       class: 'edit-question-link',
@@ -26,12 +27,13 @@ div
 .answers
   = render @question.answers
 
-.answer-errors
-    = render 'shared/errors', resource: @answer
-= form_with model: [@question, @answer], local: false, class: "new-answer" do |f|
-  p= f.label :body
-  p= f.text_area :body
-  p= f.label :files
-  p= f.file_field :files, multiple: true
-  p= render 'links/link_form', f: f
-  p= f.submit 'Answer'
+- if can?(:create, Answer)
+  .answer-errors
+      = render 'shared/errors', resource: @answer
+  = form_with model: [@question, @answer], local: false, class: "new-answer" do |f|
+    p= f.label :body
+    p= f.text_area :body
+    p= f.label :files
+    p= f.file_field :files, multiple: true
+    p= render 'links/link_form', f: f
+    p= f.submit 'Answer'
