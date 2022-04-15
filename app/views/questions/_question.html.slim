@@ -8,10 +8,17 @@ div
       = render question.badge
 
   .files
-    = render 'files/file', resource: question
+    = render 'files/file', resource: question, current_user: current_user
 
   .links
-    = render 'links/link', resource: question
+    = render 'links/link', resource: question, current_user: current_user
+
+  .comments id=question.id
+    = render question.comments
+
+  .comment-errors id=question.id
+
+  = render 'comments/form', commentable: question
 
 = form_with model: question, local: false, class: 'hidden', html: { id: "edit-question-#{question.id}" } do |f|
   p

@@ -1,9 +1,12 @@
 class AnswersController < ApplicationController
   include Voted
+  include Commented
 
   before_action :authenticate_user!
   before_action :load_question, only: %i[create]
   before_action :load_answer, only: %i[destroy update best]
+
+  after_action :publish_answer, only: %i[create]
 
   def create
     @answer = @question.answers.create(answer_params)
@@ -43,5 +46,23 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: [:name, :url, :_destroy])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast(
+      "answers_#{@answer.question.id}",
+      author_id: @answer.user.id,
+      page: render_answer
+      )
+  end
+
+  def render_answer
+    ApplicationController.render(
+      partial: 'answers/answer_for_channel',
+      locals: {
+        answer: @answer,
+      }
+    )
   end
 end

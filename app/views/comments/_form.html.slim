@@ -1,0 +1,6 @@
+= form_with scope: :comment, url: polymorphic_path(commentable, action: "comment"), class: "new-comment-#{commentable.id}", local: false  do |f|
+  p
+    = f.label :body, 'Your comment'
+    = f.text_area :body, id: "comment-body#{commentable.id}"
+  p
+    = f.submit 'Add comment'
