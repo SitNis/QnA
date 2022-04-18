@@ -1,9 +1,5 @@
-class Api::V1::ProfilesController < ApplicationController
+class Api::V1::BaseController < ApplicationController
   before_action :doorkeeper_authorize!
-
-  def me
-    render json: current_resource_owner
-  end
 
   private
 
