@@ -3,7 +3,7 @@ div class="votable-score-#{votable.id}"
 
 .vote-errors
 
-- if current_user && !current_user.author_of?(votable)
+- if can?(:like, votable)
   .vote
     .like
       = link_to "Like", polymorphic_path(votable, action: 'like'), method: :post, remote: true, data: { type: :json }

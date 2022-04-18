@@ -2,5 +2,5 @@
   - resource.files.each do |file|
     div id=file.id
       p= link_to file.filename.to_s, url_for(file)
-      -if current_user&.author_of?(resource)
+      -if can?(:destroy, file)
         p= link_to 'Delete', file_url(file), method: :delete, remote: true

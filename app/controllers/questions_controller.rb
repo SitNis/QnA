@@ -7,6 +7,8 @@ class QuestionsController < ApplicationController
 
   after_action :publish_question, only: %i[create]
 
+  authorize_resource
+
   def index
     @questions = Question.all
   end
@@ -32,12 +34,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-      redirect_to questions_path, notice: 'Question successfully deleted!'
-    else
-      redirect_to @question, notice: 'You are not an author'
-    end
+    @question.destroy
+    redirect_to questions_path, notice: 'Question successfully deleted!'
   end
 
   def show

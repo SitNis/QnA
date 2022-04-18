@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:question) { create(:question) }
   let(:user) { create(:user) }
+  let(:question) { create(:question, user: user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -142,9 +142,9 @@ RSpec.describe QuestionsController, type: :controller do
         expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
       end
 
-      it 'redirects to question' do
+      it 'redirects to questions' do
         delete :destroy, params: { id: question }
-        expect(response).to redirect_to question
+        expect(response).to redirect_to root_path
       end
     end
   end

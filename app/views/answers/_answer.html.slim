@@ -17,21 +17,21 @@ div id=answer.id
 
   = render 'comments/form', commentable: answer
 
-
-  - if current_user&.author_of?(answer)
+  - if can?(:destroy, answer)
     p= link_to 'Delete your answer', answer_path(answer), remote: true, method: :delete
     p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
-  - if current_user&.author_of?(answer.question)
+  - if can?(:best, answer)
     p= button_to('Best', best_answer_path(answer), remote: true, method: :patch)
 
-  = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-    p
-      = f.label :body, 'Your answer'
-      = f.text_area :body
-    p
-      = f.label :files
-      = f.file_field :files, multiple: true, direct_upload: true
-    p
-      = render 'links/link_form', f: f
-    p= f.submit 'Save'
+  - if can?(:updage, answer)
+    = form_with model: answer, local: false, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+      p
+        = f.label :body, 'Your answer'
+        = f.text_area :body
+      p
+        = f.label :files
+        = f.file_field :files, multiple: true, direct_upload: true
+      p
+        = render 'links/link_form', f: f
+        p= f.submit 'Save'

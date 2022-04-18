@@ -8,30 +8,26 @@ class AnswersController < ApplicationController
 
   after_action :publish_answer, only: %i[create]
 
+  authorize_resource
+
   def create
     @answer = @question.answers.create(answer_params)
     current_user.answers << @answer
   end
 
   def destroy
-    if current_user.author_of?(@answer)
-      @answer.destroy
-    end
+    @answer.destroy
   end
 
   def update
-    if current_user.author_of?(@answer)
-      @answer.update(answer_params)
-      @question = @answer.question
-    end
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def best
     @question = @answer.question
-    if current_user.author_of?(@question)
-      @answer.set_best
-      @question.give_badge if @question.badge
-    end
+    @answer.set_best
+    @question.give_badge if @question.badge
   end
 
   private
