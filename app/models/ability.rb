@@ -45,7 +45,5 @@ class Ability
     can :destroy, Link do |link|
       user.author_of?(link.linkable)
     end
-
-    can :me, User, user_id: user.id
   end
 end
