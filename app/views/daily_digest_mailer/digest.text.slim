@@ -1,0 +1,6 @@
+' DailyDigest#digest
+= "\r\n" * 2
+- @questions_of_day.each do |question|
+  = question.title + "\r\n" * 2
+  = question.body + "\r\n" * 2
+  = "\r\n" * 2
