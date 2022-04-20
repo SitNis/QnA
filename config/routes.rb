@@ -33,6 +33,11 @@ Rails.application.routes.draw do
         patch :best
       end
     end
+
+    member do
+      post :subscribe
+      delete :unsubscribe
+    end
   end
 
   namespace :api do
