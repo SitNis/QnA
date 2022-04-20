@@ -34,22 +34,7 @@ RSpec.describe Answer, type: :model do
     expect(second_answer.best).to eq true
   end
 
-  it 'can get vote' do
-    answer.vote(1, user)
-
-    expect(answer.votes.first).to be_an_instance_of(Vote)
-  end
-
-  it 'can cancel vote' do
-    answer.vote(1, user)
-    answer.cancel_vote(user)
-
-    expect(answer.votes.count).to eq(0)
-  end
-
-  it 'can count score' do
-    answer.vote(1, user)
-
-    expect(answer.score).to eq(1)
+  it_behaves_like "Votable" do
+    let(:votable) { answer }
   end
 end

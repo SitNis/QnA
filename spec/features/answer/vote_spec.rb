@@ -11,7 +11,6 @@ feature 'User can vote for answer', %q{
   given(:author) { create(:user) }
   given!(:answer) { create(:answer, question: question, user: author) }
 
-
   scenario 'Unauthenticated can not vote for answer' do
     visit question_path(question)
 
