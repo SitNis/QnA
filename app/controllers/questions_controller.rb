@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include Voted
   include Commented
 
-  before_action :load_question, only: %i[show edit update destroy]
+  before_action :load_question, only: %i[show edit update destroy subscribe unsubscribe]
   before_action :authenticate_user!, except: %i[index show]
 
   after_action :publish_question, only: %i[create]
@@ -41,6 +41,17 @@ class QuestionsController < ApplicationController
   def show
     @answer = Answer.new()
     @answer.links.build
+  end
+
+  def subscribe
+    if !current_user.subscribed?(@question)
+      @subscribtion = current_user.subscribtions.build(question: @question)
+      @subscribtion.save
+    end
+  end
+
+  def unsubscribe
+    current_user.subscribed(@question).destroy if current_user.subscribed?(@question)
   end
 
   private

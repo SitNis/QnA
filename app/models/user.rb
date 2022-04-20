@@ -18,4 +18,12 @@ class User < ApplicationRecord
   def already_achived?(badge)
     self.badges.exists?(badge.id)
   end
+
+  def subscribed(question)
+    subscribtions.find_by(question: question)
+  end
+
+  def subscribed?(question)
+    !!subscribtions.find_by(question: question)
+  end
 end

@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
   let(:question) { create(:question) }
   let(:user) { create(:user) }
   let(:badge) { create(:badge, user: user, question: question) }
+  let!(:subscribtion) { create(:subscribtion, user: user, question: question)}
 
   it "check user is an author" do
     expect(question.user).to be_author_of(question)
@@ -26,5 +27,13 @@ RSpec.describe User, type: :model do
 
   it 'check user already achive badge' do
     expect(user).to be_already_achived(badge)
+  end
+
+  it 'check user subscribed to question' do
+    expect(user).to be_subscribed(question)
+  end
+
+  it 'get user subscribtion' do
+    expect(user.subscribed(question)).to be_an_instance_of(Subscribtion)
   end
 end
