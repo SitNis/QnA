@@ -12,6 +12,8 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
+  after_create :send_notification
+
   def set_best
     if self.question.best_answer
       self.question.best_answer.update(best: false)
@@ -19,5 +21,11 @@ class Answer < ApplicationRecord
     else
       self.update(best: true)
     end
+  end
+
+  private
+
+  def send_notification
+    QuestionSubscribtionJob.new.perform(question)
   end
 end

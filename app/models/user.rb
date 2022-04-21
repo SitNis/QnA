@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :badges, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :subscribtions, dependent: :destroy
 
   def author_of?(model)
     id == model.user_id
@@ -16,5 +17,13 @@ class User < ApplicationRecord
 
   def already_achived?(badge)
     self.badges.exists?(badge.id)
+  end
+
+  def subscribed(question)
+    subscribtions.find_by(question: question)
+  end
+
+  def subscribed?(question)
+    !!subscribed(question)
   end
 end

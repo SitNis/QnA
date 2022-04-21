@@ -5,6 +5,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   has_one :badge, dependent: :destroy
+  has_many :subscribtions, dependent: :destroy
   belongs_to :user
 
   has_many_attached :files
@@ -15,6 +16,8 @@ class Question < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
+  after_create :subscribe_author
+
   def best_answer
     answers.find_by(best: true)
   end
@@ -23,5 +26,11 @@ class Question < ApplicationRecord
     if !best_answer&.user.already_achived?(self.badge)
       best_answer.user.badges << self.badge
     end
+  end
+
+  private
+
+  def subscribe_author
+    user.subscribtions.build(question: self).save
   end
 end

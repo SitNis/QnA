@@ -25,7 +25,7 @@ class Ability
 
   def user_abilities
     guest_abilities
-    can :create, [Question, Answer, Comment]
+    can :create, [Question, Answer, Comment, Subscribtion]
     can [:update, :destroy], [Question, Answer], user_id: user.id
 
     can [:like, :dislike, :cancel_vote], [Answer, Question] do |votable|
@@ -47,5 +47,7 @@ class Ability
     end
 
     can :me, User, user_id: user.id
+
+    can :destroy, Subscribtion, user_id: user.id
   end
 end
