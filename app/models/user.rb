@@ -24,6 +24,6 @@ class User < ApplicationRecord
   end
 
   def subscribed?(question)
-    !!subscribtions.find_by(question: question)
+    !!subscribed(question)
   end
 end

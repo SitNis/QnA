@@ -11,8 +11,8 @@
       data: { question_id: @question.id }
 
   .subscribtions-links
-    - if can?(:subscribe, @question)
-      = render 'subscribtions/subscribtion_links'
+    - if can?(:create, Subscribtion) && can?(:destroy, Subscribtion)
+      = render 'subscribtions/subscribtion_links', question: @question
 
   .question-errors
     = render 'shared/errors', resource: @question
